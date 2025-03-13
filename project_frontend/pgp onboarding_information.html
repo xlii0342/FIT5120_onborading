@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunShield - Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-8 py-4 shadow-md bg-orange-100">
+        <div class="text-2xl font-bold text-orange-600"><a href="pgp onboarding_home.html">🌞 SunShield</a></div>
+        <div class="hidden md:flex space-x-6 text-lg font-medium">
+            <a href="pgp onboarding_home.html" class="hover:text-orange-500 transition">Home</a>
+            <a href="pgp onboarding_calculator.html" class="hover:text-orange-500 transition">Calculator</a>
+            <a href="pgp onboarding_uvlevels.html" class="hover:text-orange-500 transition">UV Levels</a>
+            <a href="pgp onboarding_information.html" class="hover:text-orange-500 transition text-orange-700 font-bold">Information</a>
+        </div>
+        <div class="relative">
+            <input type="text" class="px-4 py-2 border rounded-full focus:outline-none" placeholder="Search...">
+            <span class="absolute right-3 top-3 text-gray-500">🔍</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="text-center py-10">
+        <h1 class="text-4xl font-extrabold text-orange-600">Sun Protection Knowledge Base</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 md:px-12 lg:px-32 space-y-10">
+        
+        <!-- UV Damage Section -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-orange-600 mb-6">Effects of UV Radiation on Skin</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-gray-700 mb-4">
+                        UV radiation from the sun can damage skin and eyes. UVA causes aging, while UVB causes sunburn.
+                    </p>
+                    
+                    <ul class="mt-4 space-y-2">
+                        <li class="text-gray-700"><span class="font-bold">Short-term:</span> Sunburn, redness, pain</li>
+                        <li class="text-gray-700"><span class="font-bold">Long-term:</span> Premature aging, wrinkles, skin cancer risk</li>
+                    </ul>
+                    
+                    <div class="mt-6 p-4 bg-orange-50 rounded-lg">
+                        <p class="font-bold text-orange-600">Did you know?</p>
+                        <p class="text-gray-700">Up to 80% of UV radiation penetrates clouds on overcast days.</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://www.solargard.com/wp-content/uploads/2018/05/sunburn-1024x683.jpg" 
+                         class="w-full shadow-md transition-all duration-500 hover:rotate-1 hover:shadow-2xl hover:contrast-125" 
+                         alt="UV skin damage">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Protection Methods -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-orange-600 mb-6">Sun Protection Methods</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Sunscreen -->
+                <div class="bg-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4">Sunscreen</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">SPF:</span> 30+ recommended (blocks 97% UVB)</li>
+                        <li><span class="font-bold">Type:</span> Choose broad spectrum (UVA+UVB protection)</li>
+                        <li><span class="font-bold">Apply:</span> 15-30 minutes before going outside</li>
+                        <li><span class="font-bold">Reapply:</span> Every 2 hours and after swimming</li>
+                    </ul>
+                </div>
+                
+                <!-- Protective Clothing -->
+                <div class="bg-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4">Clothing</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">UPF:</span> Look for UPF 50+ fabrics</li>
+                        <li><span class="font-bold">Coverage:</span> Long sleeves, pants when possible</li>
+                        <li><span class="font-bold">Hat:</span> Wide-brimmed (3+ inches)</li>
+                        <li><span class="font-bold">Sunglasses:</span> 100% UV protection/UV400</li>
+                    </ul>
+                </div>
+                
+                <!-- Shade and Timing -->
+                <div class="bg-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4">Timing & Shade</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">Avoid:</span> 10 AM - 4 PM (peak UV hours)</li>
+                        <li><span class="font-bold">Shade:</span> Seek trees, umbrellas, structures</li>
+                        <li><span class="font-bold">Shadow rule:</span> Short shadow = high UV</li>
+                        <li><span class="font-bold">Check:</span> Daily UV index forecasts</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 py-6 bg-orange-200 text-center text-gray-700 font-medium">
+        © 2025 SunShield. Stay Safe, Stay Protected.
+    </footer>
+
+</body>
+</html> 

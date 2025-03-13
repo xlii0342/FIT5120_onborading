@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunShield - SPF Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-8 py-4 shadow-md bg-orange-100">
+        <div class="text-2xl font-bold text-orange-600"><a href="pgp onboarding_home.html">🌞 SunShield</a></div>
+        <div class="hidden md:flex space-x-6 text-lg font-medium">
+            <a href="pgp onboarding_home.html" class="hover:text-orange-500 transition">Home</a>
+            <a href="pgp onboarding_calculator.html" class="hover:text-orange-500 transition text-orange-700 font-bold">Calculator</a>
+            <a href="pgp onboarding_uvlevels.html" class="hover:text-orange-500 transition">UV Levels</a>
+            <a href="pgp onboarding_information.html" class="hover:text-orange-500 transition">Information</a>
+        </div>
+        <div class="relative">
+            <input type="text" class="px-4 py-2 border rounded-full focus:outline-none" placeholder="Search...">
+            <span class="absolute right-3 top-3 text-gray-500">🔍</span>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="text-center py-10">
+        <h1 class="text-4xl font-extrabold text-orange-600">Sunscreen SPF Calculator</h1>
+    </header>
+
+    <!-- Calculator Section -->
+    <section class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <form>
+            <!-- Skin Type -->
+            <label class="block font-semibold text-lg text-orange-600">What is your skin type?</label>
+            <select class="w-full px-4 py-3 mt-2 rounded-lg border bg-orange-50 focus:outline-none">
+                <option>Very Fair</option>
+                <option>Fair</option>
+                <option>Medium</option>
+                <option>Dark</option>
+                <option>Very Dark</option>
+            </select>
+
+            <!-- Climate -->
+            <label class="block font-semibold text-lg text-orange-600 mt-6">What is the local climate?</label>
+            <select class="w-full px-4 py-3 mt-2 rounded-lg border bg-orange-50 focus:outline-none">
+                <option>Cold (Below 20°C)</option>
+                <option>Mild (20°C - 30°C)</option>
+                <option>Hot (Above 30°C)</option>
+            </select>
+
+            <!-- Time Outdoors -->
+            <label class="block font-semibold text-lg text-orange-600 mt-6">How much time will you spend outdoors?</label>
+            <select class="w-full px-4 py-3 mt-2 rounded-lg border bg-orange-50 focus:outline-none">
+                <option>Less than 1 hour</option>
+                <option>1 - 2 hours</option>
+                <option>More than 2 hours</option>
+            </select>
+
+            <!-- Submit Button -->
+            <button class="w-full mt-6 bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
+                Calculate SPF
+            </button>
+        </form>
+    </section>
+
+    <!-- Disclaimer -->
+    <p class="text-center text-sm text-gray-600 mt-4">
+        Disclaimer: This SPF calculator provides general recommendations based on typical skin types, local climates, and outdoor exposure times.
+        Individual sunscreen needs may vary. Always consult a healthcare professional for personalized advice.
+    </p>
+
+    <!-- Footer -->
+    <footer class="mt-10 py-6 bg-orange-200 text-center text-gray-700 font-medium">
+        © 2025 SunShield. Stay Safe, Stay Protected.
+    </footer>
+
+</body>
+</html>

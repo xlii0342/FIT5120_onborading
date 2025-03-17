@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SunShield - SPF & Vitamin D Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // 调用后端 API 获取温度数据，用于判断气候
+    async function fetchClimate() {
+      try {
+        const response = await fetch("/api/temperature?city=Melbourne");
+        const data = await response.json();
+        if (data.temperature) {
+          const temp = data.temperature;
+          if (temp >= 30) return "hot";
+          if (temp >= 20 && temp < 30) return "mild";
+          return "cold";
+        } else {
+          console.error("Error fetching temperature:", data.error);
+          return "mild"; // 默认如果 API 失败
+        }
+      } catch (error) {
+        console.error("Error fetching temperature:", error);
+        return "mild";
+      }
+    }
+
+    // 调用后端 API 获取实时 UV 指数
+    // 默认使用墨尔本的经纬度（可根据需要修改或扩展为用户定位）
+    async function fetchUVIndex(lat = -37.8136, lng = 144.9631) {
+      try {
+        const response = await fetch(`/api/uv?lat=${lat}&lng=${lng}`);
+        const data = await response.json();
+        if (data.uv_index !== undefined && data.uv_index !== null) {
+          return data.uv_index;
+        } else {
+          console.error("Error fetching UV index:", data.error);
+          return 7; // 默认 UV 指数
+        }
+      } catch (error) {
+        console.error("Error fetching UV index:", error);
+        return 7;
+      }
+    }
+
+    // 获取皮肤类型对应的最小红斑剂量（MED），示例值
+    function getMED(skinType) {
+      const medValues = { '1': 200, '2': 250, '3': 300, '4': 350, '5': 400, '6': 450 };
+      return medValues[skinType] || 250;
+    }
+
+    // 根据 SPF 推荐值返回阻挡紫外线的比例（示例值）
+    function getSPFBlock(spf) {
+      return spf === "50 | PA++++" ? 0.98
+           : spf === "30 | PA+++"  ? 0.97
+           : spf === "15 | PA++"   ? 0.93
+           : 0.0;
+    }
+
+    // 根据皮肤类型、曝晒时长和气候，计算推荐的 SPF
+    async function calculateSPF(hours) {
+      const skinType = document.getElementById("skinType").value;
+      const climate = await fetchClimate(); // Fetch climate dynamically
+
+      let recommendedSPF;
+      // 如果曝晒时长 >= 2 或气候炎热，则推荐最高防晒
+      if (hours >= 2 || climate === "hot") {
+        recommendedSPF = "50 | PA++++";
+      } else {
+        switch (skinType) {
+          case "1":
+          case "2":
+            recommendedSPF = "50 | PA++++";
+            break;
+          case "3":
+          case "4":
+            recommendedSPF = "30 | PA+++";
+            break;
+          case "5":
+          case "6":
+            recommendedSPF = "15 | PA++";
+            break;
+          default:
+            recommendedSPF = "50 | PA++++";
+        }
+      }
+      return recommendedSPF;
+    }
+
+    // 开始定时提醒，按每 2 小时提醒用户重新涂防晒霜
+    function startReminderTimer(hours) {
+      let reminders = Math.floor(hours / 2);
+      for (let i = 1; i <= reminders; i++) {
+        setTimeout(() => {
+          alert(`⏳ Time to reapply sunscreen! It's been ${i * 2} hours.`);
+          document.getElementById('reminder').style.display = 'block';
+        }, i * 7200000);
+      }
+    }
+
+    // 显示时间轴（每 2 小时一个节点，从 0 小时开始）
+    function displayTimeline(hours) {
+      let timelineHtml = `<div class="relative w-full flex items-center justify-between mt-6 border-t-4 border-gray-300">`;
+      for (let i = 0; i <= hours; i += 2) {
+        timelineHtml += `
+          <div class="relative flex flex-col items-center">
+            <div class="w-6 h-6 bg-orange-600 rounded-full absolute -top-3"></div>
+            <p class="mt-8 text-sm font-medium">${i} hrs</p>
+          </div>
+        `;
+      }
+      timelineHtml += `</div>`;
+      document.getElementById('timeline').innerHTML = timelineHtml;
+    }
+
+    // 主计算函数：整合 SPF 推荐和维他命 D 生成量计算
+    async function calculateResults() {
+      const skinType = document.getElementById('skinType').value;
+      const hours = parseFloat(document.getElementById('hours').value);
+
+      // 当用户输入时间为 0 或未输入时，给出提示
+      if (!hours || hours === 0) {
+        alert("Please enter a valid number of hours greater than 0.");
+        return;
+      }
+
+      // 使用实时 UV 指数
+      const uvIndex = await fetchUVIndex();
+      const spf = await calculateSPF(hours);
+      const med = getMED(skinType);
+
+      // 计算 UV 剂量
+      let uvDose = 0;
+      if (hours >= 2) {
+        uvDose = uvIndex * hours * 3600;
+      } else {
+        let totalMinutes = Math.floor(hours * 60);
+        for (let i = 0; i < totalMinutes; i++) {
+          uvDose += uvIndex * 60;
+        }
+      }
+
+      // 计算维他命 D
+      let vitaminD = (uvDose / (med / 3)) * 1000;
+      const spfBlock = getSPFBlock(spf);
+      const adjustedUVDose = uvDose * (1 - spfBlock);
+      const adjustedVitaminD = (adjustedUVDose / (med / 3)) * 1000;
+
+      document.getElementById('result').innerHTML = `
+        <p class="text-lg font-bold text-orange-700">Recommended SPF: ${spf}</p>
+        <p class="text-lg font-bold text-green-700">Estimated Vitamin D (Before Sunscreen): ${Math.round(vitaminD)} IU</p>
+        <p class="text-lg font-bold text-blue-700">Estimated Vitamin D (After Sunscreen ${spf}): ${Math.round(adjustedVitaminD)} IU</p>
+        <p class="mt-4 text-md text-gray-700 font-semibold italic">
+          "A common myth is that sunscreen completely blocks vitamin D. But even with ${spf}, one hour of sun exposure still gives you ${Math.round(adjustedVitaminD)} IU of vitamin D, which is great!"
+        </p>
+      `;
+
+      startReminderTimer(hours);
+      // displayTimeline(hours); // 如需显示时间轴，可取消注释
+    }
+  </script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-8 py-4 shadow-md bg-orange-100">
+      <div class="text-2xl font-bold text-orange-600">
+          <a href="/">🌞 SunShield</a>
+      </div>
+      <div class="hidden md:flex space-x-6 text-lg font-medium">
+          <a href="/" class="hover:text-orange-500 transition">Home</a>
+          <a href="/calculator" class="hover:text-orange-500 transition">Calculator</a>
+          <a href="/uvlevels" class="hover:text-orange-500 transition">UV Levels</a>
+          <a href="/information" class="hover:text-orange-500 transition">Information</a>
+      </div>
+      <div class="relative">
+          <input type="text" class="px-4 py-2 border rounded-full focus:outline-none" placeholder="Search...">
+          <span class="absolute right-3 top-3 text-gray-500">🔍</span>
+      </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="text-center py-10">
+      <h1 class="text-4xl font-extrabold text-orange-600">SPF & Vitamin D Calculator</h1>
+  </header>
+
+  <!-- Calculator Section -->
+  <section class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-lg">
+      <form onsubmit="event.preventDefault(); calculateResults();">
+          <!-- Skin Type -->
+          <label class="block font-semibold text-lg text-orange-600">What is your skin type?</label>
+          <select id="skinType" class="w-full px-4 py-3 mt-2 rounded-lg border bg-orange-50 focus:outline-none">
+              <option value="1">Very Fair</option>
+              <option value="2">Fair</option>
+              <option value="3">Medium</option>
+              <option value="4">Olive</option>
+              <option value="5">Dark</option>
+              <option value="6">Very Dark</option>
+          </select>
+
+          <!-- Hours of Sun Exposure -->
+          <label class="block font-semibold text-lg text-orange-600 mt-6">How many hours will you be exposed?</label>
+          <input id="hours" type="number" min="0.5" step="0.5" class="w-full px-4 py-3 mt-2 rounded-lg border bg-orange-50 focus:outline-none" placeholder="Enter hours">
+
+          <!-- Submit Button -->
+          <button type="submit" class="w-full mt-6 bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
+              Calculate SPF & Vitamin D
+          </button>
+      </form>
+
+      <!-- Result Display -->
+      <div id="result" class="mt-6 text-lg"></div>
+      <!-- Timeline Display -->
+      <div id="timeline" class="mt-6"></div>
+      <!-- Reminder Section -->
+      <div id="reminder" class="mt-4 hidden">
+          <button onclick="handleSunscreenResponse(true)" class="px-4 py-2 bg-green-100 rounded-md">✅ Yes, I applied</button>
+          <button onclick="handleSunscreenResponse(false)" class="px-4 py-2 bg-red-100 rounded-md">❌ No, I haven't</button>
+      </div>
+      <!-- Warning Section -->
+      <div id="warning" class="mt-4"></div>
+  </section>
+
+  <!-- Disclaimer -->
+  <p class="text-center text-sm text-gray-600 mt-4">
+      Disclaimer: This calculator provides general recommendations based on typical skin types, local climates, and sun exposure durations.
+      Individual needs may vary. Always consult a healthcare professional for personalized advice.
+  </p>
+
+  <!-- Footer -->
+  <footer class="mt-10 py-6 bg-orange-200 text-center text-gray-700 font-medium">
+      ©️ 2025 SunShield. Stay Safe, Stay Protected.
+  </footer>
+
+  <script>
+      // Example implementation of the sunscreen response handler
+      function handleSunscreenResponse(applied) {
+          if (!applied) {
+              document.getElementById('warning').innerHTML = `
+                  <p class="text-md text-red-600 font-semibold">
+                      ⚠ Warning: Prolonged sun exposure without sunscreen can cause skin damage, premature aging, and increase skin cancer risk. Please apply sunscreen now!
+                  </p>`;
+          } else {
+              document.getElementById('warning').innerHTML = "";
+          }
+      }
+  </script>
+</body>
+</html>

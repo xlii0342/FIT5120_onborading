@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunShield - Protect Yourself</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+
+    <!-- Navbar -->
+<nav class="flex items-center justify-between px-8 py-4 shadow-md bg-orange-100">
+    <div class="text-2xl font-bold text-orange-600">
+        <a href="/">🌞 SunShield</a>
+    </div>
+    <div class="hidden md:flex space-x-6 text-lg font-medium">
+        <a href="/" class="hover:text-orange-500 transition text-orange-700 font-bold">Home</a>
+        <a href="/calculator" class="hover:text-orange-500 transition">Calculator</a>
+        <a href="/uvlevels" class="hover:text-orange-500 transition">UV Levels</a>
+        <a href="/information" class="hover:text-orange-500 transition">Information</a>
+    </div>
+    <div class="relative">
+        <input type="text" class="px-4 py-2 border rounded-full focus:outline-none" placeholder="Search...">
+        <span class="absolute right-3 top-3 text-gray-500">🔍</span>
+    </div>
+</nav>
+
+
+    <!-- Hero Section -->
+    <header class="text-center py-10">
+        <h1 class="text-4xl font-extrabold text-orange-600">Protect Yourself from the Sun</h1>
+        <p class="text-lg text-gray-600 mt-2">Stay safe with real-time UV tracking and sun protection tips.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 md:px-12 lg:px-32 space-y-10">
+
+        <!-- Overview Section -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-orange-600 mb-4">Overview</h2>
+                    <div class="text-gray-700 space-y-4">
+                        <p>
+                            It's great being outdoors, enjoying our beautiful country and climate. But being outdoors means we're exposed to some of the <span class="text-orange-600 font-semibold">harshest and most dangerous levels of ultraviolet (UV) radiation</span>.
+                        </p>
+
+                        <p>
+                            Basking in the sun feels great, but too much UV exposure can leave you with more than just a tan—it can cause:
+                        </p>
+
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Sunburn</li>
+                            <li>Wrinkles</li>
+                            <li>Eye damage</li>
+                            <li>Increased risk of skin cancer</li>
+                        </ul>
+
+                        <p class="font-semibold text-orange-600">
+                            The good news? You can enjoy the sunshine safely!
+                        </p>
+
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Slather on a broad-spectrum sunscreen</li>
+                            <li>Rock some stylish UV-blocking sunglasses</li>
+                            <li>Throw on a hat for extra protection</li>
+                            <li>Stay in the shade during peak hours</li>
+                        </ul>
+
+                        <p>
+                            Don't let water or snow trick you—UV rays bounce off surfaces, making them even stronger. Play it smart, and you can soak up the sun without the damage!
+                        </p>
+                    </div>
+                </div>
+                <div class="md:w-1/2" style="height: 600px;">
+                    <img src="https://www.absolutely-australia.com.au/tips-hacks/image/x/protection-from-the-sun.jpg?__ver=1688051553"
+                         class="rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl w-full h-full object-cover"
+                         alt="Sun protection">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="bg-orange-50 p-6 rounded-xl text-center">
+            <blockquote class="text-2xl font-semibold italic text-orange-700">
+                "The best protection is prevention. Shield yourself from the sun!"
+            </blockquote>
+        </section>
+
+        <!-- Sun Protection Info -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-orange-600">Information on Sun Protection</h2>
+            <p class="text-gray-700 mt-4">
+                Use sunscreen, wear protective clothing, and seek shade during peak UV hours.
+                Stay informed with real-time UV index updates.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-4">
+                <button id="sunscreenBtn" class="px-4 py-2 bg-orange-100 rounded-full text-orange-600 font-medium hover:bg-orange-200 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500">Sunscreen Tips</button>
+                <button id="clothingBtn" class="px-4 py-2 bg-orange-100 rounded-full text-orange-600 font-medium hover:bg-orange-200 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500">Best Clothing</button>
+                <button id="awarenessBtn" class="px-4 py-2 bg-orange-100 rounded-full text-orange-600 font-medium hover:bg-orange-200 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500">UV Awareness</button>
+            </div>
+
+            <!-- Info Panels (Hidden by Default) -->
+            <div id="sunscreenInfo" class="mt-6 p-6 bg-orange-50 rounded-lg hidden">
+                <h3 class="text-xl font-bold text-orange-600 mb-3">Sunscreen Tips</h3>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><span class="font-semibold">SPF 30+:</span> Use broad-spectrum sunscreen with SPF 30 or higher</li>
+                    <li><span class="font-semibold">Apply generously:</span> Use approximately 1 ounce (a shot glass full) to cover your entire body</li>
+                    <li><span class="font-semibold">Reapply:</span> Every 2 hours and after swimming or sweating</li>
+                    <li><span class="font-semibold">Don't forget:</span> Ears, back of neck, tops of feet, and scalp (if hair is thin)</li>
+                    <li><span class="font-semibold">Apply early:</span> Put on sunscreen 15-30 minutes before going outside</li>
+                </ul>
+            </div>
+
+            <div id="clothingInfo" class="mt-6 p-6 bg-orange-50 rounded-lg hidden">
+                <h3 class="text-xl font-bold text-orange-600 mb-3">Best Protective Clothing</h3>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><span class="font-semibold">UPF Rating:</span> Look for clothes with UPF (Ultraviolet Protection Factor) 50+ rating</li>
+                    <li><span class="font-semibold">Fabric:</span> Tightly woven fabrics offer better protection than loosely woven ones</li>
+                    <li><span class="font-semibold">Coverage:</span> Long sleeves and pants provide more protection than short sleeves and shorts</li>
+                    <li><span class="font-semibold">Hats:</span> Wide-brimmed hats (3+ inches) protect face, ears, and neck better than baseball caps</li>
+                    <li><span class="font-semibold">Sunglasses:</span> Choose ones that block 99-100% of UVA and UVB radiation</li>
+                </ul>
+            </div>
+
+            <div id="awarenessInfo" class="mt-6 p-6 bg-orange-50 rounded-lg hidden">
+                <h3 class="text-xl font-bold text-orange-600 mb-3">UV Awareness</h3>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><span class="font-semibold">Peak hours:</span> UV radiation is strongest between 10 AM and 4 PM</li>
+                    <li><span class="font-semibold">Cloud cover:</span> Up to 80% of UV rays can penetrate through clouds</li>
+                    <li><span class="font-semibold">Reflection:</span> Snow, sand, water, and concrete can reflect UV rays, increasing exposure</li>
+                    <li><span class="font-semibold">Altitude:</span> UV exposure increases about 4-5% for every 1,000 feet above sea level</li>
+                    <li><span class="font-semibold">Shadow rule:</span> If your shadow is shorter than you, UV exposure is high</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 py-6 bg-orange-200 text-center text-gray-700 font-medium">
+        © 2025 SunShield. Stay Safe, Stay Protected.
+    </footer>
+
+    <!-- JavaScript for Interactive Buttons -->
+    <script>
+        // Get all buttons and info panels
+        const sunscreenBtn = document.getElementById('sunscreenBtn');
+        const clothingBtn = document.getElementById('clothingBtn');
+        const awarenessBtn = document.getElementById('awarenessBtn');
+
+        const sunscreenInfo = document.getElementById('sunscreenInfo');
+        const clothingInfo = document.getElementById('clothingInfo');
+        const awarenessInfo = document.getElementById('awarenessInfo');
+
+        // Hide all info panels
+        function hideAllPanels() {
+            sunscreenInfo.classList.add('hidden');
+            clothingInfo.classList.add('hidden');
+            awarenessInfo.classList.add('hidden');
+        }
+
+        // Toggle sunscreen info
+        sunscreenBtn.addEventListener('click', function() {
+            if (sunscreenInfo.classList.contains('hidden')) {
+                hideAllPanels();
+                sunscreenInfo.classList.remove('hidden');
+            } else {
+                sunscreenInfo.classList.add('hidden');
+            }
+        });
+
+        // Toggle clothing info
+        clothingBtn.addEventListener('click', function() {
+            if (clothingInfo.classList.contains('hidden')) {
+                hideAllPanels();
+                clothingInfo.classList.remove('hidden');
+            } else {
+                clothingInfo.classList.add('hidden');
+            }
+        });
+
+        // Toggle awareness info
+        awarenessBtn.addEventListener('click', function() {
+            if (awarenessInfo.classList.contains('hidden')) {
+                hideAllPanels();
+                awarenessInfo.classList.remove('hidden');
+            } else {
+                awarenessInfo.classList.add('hidden');
+            }
+        });
+    </script>
+
+</body>
+</html>
+

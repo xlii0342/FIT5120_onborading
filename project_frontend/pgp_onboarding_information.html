@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunShield - Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+
+    <!-- Navbar -->
+<nav class="flex items-center justify-between px-8 py-4 shadow-md bg-orange-100">
+    <div class="text-2xl font-bold text-orange-600">
+        <a href="/">🌞 SunShield</a>
+    </div>
+    <div class="hidden md:flex space-x-6 text-lg font-medium">
+        <a href="/" class="hover:text-orange-500 transition">Home</a>
+        <a href="/calculator" class="hover:text-orange-500 transition">Calculator</a>
+        <a href="/uvlevels" class="hover:text-orange-500 transition">UV Levels</a>
+        <a href="/information" class="hover:text-orange-500 transition text-orange-700 font-bold">Information</a>
+    </div>
+    <div class="relative">
+        <input type="text" class="px-4 py-2 border rounded-full focus:outline-none" placeholder="Search...">
+        <span class="absolute right-3 top-3 text-gray-500">🔍</span>
+    </div>
+</nav>
+
+
+    <!-- Hero Section -->
+    <header class="text-center py-10">
+        <h1 class="text-4xl font-extrabold text-orange-600">Sun Protection Knowledge Base</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 md:px-12 lg:px-32 space-y-10">
+
+        <!-- UV Damage Section -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-orange-600 mb-6">Effects of UV Radiation on Skin</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-gray-700 mb-4">
+                        UV radiation from the sun can damage skin and eyes. UVA causes aging, while UVB causes sunburn.
+                    </p>
+
+                    <ul class="mt-4 space-y-2">
+                        <li class="text-gray-700"><span class="font-bold">Short-term:</span> Sunburn, redness, pain</li>
+                        <li class="text-gray-700"><span class="font-bold">Long-term:</span> Premature aging, wrinkles, skin cancer risk</li>
+                    </ul>
+
+                    <div class="mt-6 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-orange-100 py-3 px-4 border-l-4 border-orange-500">
+                            <p class="font-bold text-orange-600 text-lg flex items-center">
+                                <span class="mr-2">💡</span> Did you know?
+                            </p>
+                        </div>
+                        <div class="p-4">
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">⏱️</span>
+                                    <span><span class="font-semibold">Sunscreen needs time:</span> About 15–30 minutes to absorb into your skin and start working.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">☀️</span>
+                                    <span><span class="font-semibold">Vitamin D still works:</span> Sunscreen doesn't completely block vitamin D production, so you can still get vitamin D while wearing sunscreen.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">🥥</span>
+                                    <span><span class="font-semibold">Emergency alternative:</span> If you forget sunscreen, use coconut oil in an emergency (It has an SPF of about 4-5).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">⚠️</span>
+                                    <span><span class="font-semibold">Time limit:</span> After 20 minutes, your body stops producing vitamin D and starts accumulating sun damage instead.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://www.solargard.com/wp-content/uploads/2018/05/sunburn-1024x683.jpg"
+                         class="w-full shadow-md transition-all duration-500 hover:rotate-1 hover:shadow-2xl hover:contrast-125"
+                         alt="UV skin damage">
+                </div>
+            </div>
+        </section>
+
+        <!-- Cancer Data Visualization -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-orange-600 mb-6">Skin Cancer Incidence & Mortality in Australia</h2>
+
+            <div class="mb-6">
+                <label for="stateSelect" class="block text-lg font-medium text-gray-700 mb-2">Select State:</label>
+                <select id="stateSelect" class="px-4 py-2 border rounded-lg focus:outline-none">
+                    <option value="all">All States</option>
+                    <option value="New South Wales">New South Wales</option>
+                    <option value="Victoria">Victoria</option>
+                    <option value="Queensland">Queensland</option>
+                    <option value="Western Australia">Western Australia</option>
+                    <option value="South Australia">South Australia</option>
+                    <option value="Tasmania">Tasmania</option>
+                    <option value="Australian Capital Territory">Australian Capital Territory</option>
+                    <option value="Northern Territory">Northern Territory</option>
+                </select>
+            </div>
+
+            <svg id="cancerChart" width="800" height="400"></svg>
+        </section>
+
+        <!-- Protection Methods -->
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-orange-600 mb-6">Sun Protection Methods</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Sunscreen -->
+                <div class="bg-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4">Sunscreen</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">SPF:</span> 30+ recommended (blocks 97% UVB)</li>
+                        <li><span class="font-bold">Type:</span> Choose broad spectrum (UVA+UVB protection)</li>
+                        <li><span class="font-bold">Apply:</span> 15-30 minutes before going outside</li>
+                        <li><span class="font-bold">Reapply:</span> Every 2 hours and after swimming</li>
+                    </ul>
+                </div>
+
+                <!-- Protective Clothing -->
+                <div class="bg-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4">Clothing</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">UPF:</span> Look for UPF 50+ fabrics</li>
+                        <li><span class="font-bold">Coverage:</span> Long sleeves, pants when possible</li>
+                        <li><span class="font-bold">Hat:</span> Wide-brimmed (3+ inches)</li>
+                        <li><span class="font-bold">Sunglasses:</span> 100% UV protection/UV400</li>
+                    </ul>
+                </div>
+
+                <!-- Shade and Timing -->
+                <div class="bg-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-orange-600 mb-4">Timing & Shade</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">Avoid:</span> 10 AM - 4 PM (peak UV hours)</li>
+                        <li><span class="font-bold">Shade:</span> Seek trees, umbrellas, structures</li>
+                        <li><span class="font-bold">Shadow rule:</span> Short shadow = high UV</li>
+                        <li><span class="font-bold">Check:</span> Daily UV index forecasts</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 py-6 bg-orange-200 text-center text-gray-700 font-medium">
+        © 2025 SunShield. Stay Safe, Stay Protected.
+    </footer>
+
+    <!-- D3.js Script for Visualization -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const stateSelect = document.getElementById("stateSelect");
+
+            stateSelect.addEventListener("change", function () {
+                const selectedState = stateSelect.value;
+                fetchCancerData(selectedState);
+            });
+
+            fetchCancerData("all");
+
+            function fetchCancerData(state) {
+                d3.csv("/data/allcancer_summary.csv").then(data => {
+                    if (state !== "all") {
+                        data = data.filter(d => d.State === state);
+                    }
+                    drawChart(data, state);
+                }).catch(error => console.error('Error fetching data:', error));
+            }
+
+            function drawChart(data, state) {
+                const width = 800;
+                const height = 400;
+                const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+
+                const svg = d3.select("#cancerChart")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .html(""); // Clear any previous contents
+
+                const xScale = d3.scaleLinear()
+                    .domain(d3.extent(data, d => +d.Year))
+                    .range([margin.left, width - margin.right]);
+
+                const yScale = d3.scaleLinear()
+                    .domain([0, d3.max(data, d => Math.max(+d.Count_incidence, +d.Count_mortality))])
+                    .range([height - margin.bottom, margin.top]);
+
+                const lineIncidence = d3.line()
+                    .x(d => xScale(+d.Year))
+                    .y(d => yScale(+d.Count_incidence));
+
+                const lineMortality = d3.line()
+                    .x(d => xScale(+d.Year))
+                    .y(d => yScale(+d.Count_mortality));
+
+                if (state === "all") {
+                    const states = Array.from(new Set(data.map(d => d.State)));
+
+                    states.forEach(state => {
+                        const stateData = data.filter(d => d.State === state);
+
+                        svg.append("path")
+                            .datum(stateData)
+                            .attr("class", "incidence-line")
+                            .attr("fill", "none")
+                            .attr("stroke", "#80b1d3")
+                            .attr("stroke-width", 1)
+                            .attr("d", lineIncidence)
+                            .on("mouseover", function(event, d) {
+                                d3.select(this).attr("stroke-width", 3);
+                                svg.append("text")
+                                    .attr("id", "tooltip")
+                                    .attr("x", width - 200)
+                                    .attr("y", 60)
+                                    .text(state)
+                                    .attr("fill", "#666666")
+                                    .style("font-weight", "bold");
+                            })
+                            .on("mouseout", function(event, d) {
+                                d3.select(this).attr("stroke-width", 1);
+                                svg.select("#tooltip").remove();
+                            });
+
+                        svg.append("path")
+                            .datum(stateData)
+                            .attr("class", "mortality-line")
+                            .attr("fill", "none")
+                            .attr("stroke", "#fb8072")
+                            .attr("stroke-width", 1)
+                            .attr("d", lineMortality)
+                            .on("mouseover", function(event, d) {
+                                d3.select(this).attr("stroke-width", 3);
+                                svg.append("text")
+                                    .attr("id", "tooltip")
+                                    .attr("x", width - 200)
+                                    .attr("y", 60)
+                                    .text(state)
+                                    .attr("fill", "#666666")
+                                    .style("font-weight", "bold");
+                            })
+                            .on("mouseout", function(event, d) {
+                                d3.select(this).attr("stroke-width", 1);
+                                svg.select("#tooltip").remove();
+                            });
+                    });
+                } else {
+                    svg.append("path")
+                        .datum(data)
+                        .attr("fill", "none")
+                        .attr("stroke", "#80b1d3")
+                        .attr("stroke-width", 2)
+                        .attr("d", lineIncidence);
+
+                    svg.append("path")
+                        .datum(data)
+                        .attr("fill", "none")
+                        .attr("stroke", "#fb8072")
+                        .attr("stroke-width", 2)
+                        .attr("d", lineMortality);
+                }
+
+                // X Axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.format("d")));
+
+                // Y Axis
+                svg.append("g")
+                    .attr("transform", `translate(${margin.left},0)`)
+                    .call(d3.axisLeft(yScale));
+
+                // Legend
+                svg.append("text")
+                    .attr("x", width - 200)
+                    .attr("y", 20)
+                    .text("Incidence")
+                    .attr("fill", "#80b1d3")
+                    .style("font-weight", "bold");
+
+                svg.append("text")
+                    .attr("x", width - 200)
+                    .attr("y", 40)
+                    .text("Mortality")
+                    .attr("fill", "#fb8072")
+                    .style("font-weight", "bold");
+            }
+        });
+    </script>
+
+</body>
+</html>
